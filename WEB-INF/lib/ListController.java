@@ -101,7 +101,7 @@ public class ListController extends HttpServlet {
 		float semester4 = Float.parseFloat(request.getParameter("semester4"));
 		float semester5 = Float.parseFloat(request.getParameter("semester5"));
 		float semester6 = Float.parseFloat(request.getParameter("semester6"));
-		float cgpa = (semester1+semester2+semester3+semester4+semester5+semester6)/6;
+		float cgpa = Float.parseFloat(String.format("%.2f",((semester1+semester2+semester3+semester4+semester5+semester6)/6)));
 		Student updateStudent = new Student(studentId,name,email,city,semester1,semester2,semester3,semester4,semester5,semester6,cgpa);
 		
 		studentDao.updateStudent(updateStudent);

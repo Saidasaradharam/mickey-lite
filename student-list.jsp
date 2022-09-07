@@ -28,7 +28,8 @@
 			</div>
 			<br>
 			<table class="table table-bordered">
-				<thead>
+				<thead style=" position: sticky;
+				top: 0; background-color: rgb(86, 86, 157);">
 					<tr>
 						<th>Name</th>
 						<th>Semester 1</th>

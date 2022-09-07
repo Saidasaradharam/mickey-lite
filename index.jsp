@@ -16,6 +16,7 @@
 <body>
 	
 	<h3 class="text-center">Students Marks</h3>
+	<h5 class="text-center">Add Record</h5>
 	<div class="container text-right">
 
 		<a href="<%=request.getContextPath()%>/list"
@@ -53,32 +54,32 @@
 
 					<div class="form-group">
 						<label for="semester1">Semester 1:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 1 Marks"
+							class="form-control"  placeholder="Enter Semester 1 GPA"
 							name="semester1" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester2">Semester 2:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 2 Marks"
+							class="form-control"  placeholder="Enter Semester 2 GPA"
 							name="semester2" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester3">Semester 3:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 3 Marks"
+							class="form-control"  placeholder="Enter Semester 3 GPA"
 							name="semester3" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester4">Semester 4:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 4 Marks"
+							class="form-control"  placeholder="Enter Semester 4 GPA"
 							name="semester4" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester5">Semester 5:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 5 Marks"
+							class="form-control"  placeholder="Enter Semester 5 GPA"
 							name="semester5" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester6">Semester 6:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 6 Marks"
+							class="form-control"  placeholder="Enter Semester 6 GPA"
 							name="semester6" step="0.01" required>
 					</div>
 
