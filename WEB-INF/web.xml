@@ -5,7 +5,7 @@
 
 	<servlet>
         <servlet-name>Upload</servlet-name>
-        <servlet-class>Upload</servlet-class>
+        <servlet-class>student.Upload</servlet-class>
     </servlet>
 
     <servlet-mapping>

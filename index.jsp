@@ -22,7 +22,7 @@
 	<div class="container col-md-5">
 			
 			
-				<form action="<%=request.getContextPath()%>/register" method="post">
+				<form action="<%=request.getContextPath()%>/upload" method="post">
 
                     <div class="form-group">
 						<label for="studentId">Student ID:</label> <input type="number"
@@ -51,32 +51,32 @@
 					<div class="form-group">
 						<label for="semester1">Semester 1:</label> <input type="number"
 							class="form-control"  placeholder="Enter Semester 1 Marks"
-							name="semester1" required>
+							name="semester1" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester2">Semester 2:</label> <input type="number"
 							class="form-control"  placeholder="Enter Semester 2 Marks"
-							name="semester2" required>
+							name="semester2" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester3">Semester 3:</label> <input type="number"
 							class="form-control"  placeholder="Enter Semester 3 Marks"
-							name="semester3" required>
+							name="semester3" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester4">Semester 4:</label> <input type="number"
 							class="form-control"  placeholder="Enter Semester 4 Marks"
-							name="semester4" required>
+							name="semester4" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester5">Semester 5:</label> <input type="number"
 							class="form-control"  placeholder="Enter Semester 5 Marks"
-							name="semester5" required>
+							name="semester5" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester6">Semester 6:</label> <input type="number"
 							class="form-control"  placeholder="Enter Semester 6 Marks"
-							name="semester6" required>
+							name="semester6" step="0.01" required>
 					</div>
 
 					<button type="submit" class="btn btn-primary">Submit</button>
