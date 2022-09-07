@@ -121,7 +121,7 @@ public class Student implements Serializable {
 	public void setcgpa(float cgpa) {
 		this.cgpa = cgpa;
 	}
-    public float setcgpa() {
+    public float getcgpa() {
 		return cgpa;
 	}
 }

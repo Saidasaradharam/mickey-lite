@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-    
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>To-Do App</title>
+<title>Student Details</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -20,12 +19,12 @@
 
 
 		<div class="container">
-			<h3 class="text-center">Student</h3>
+			<h3 class="text-center">Students Marks</h3>
 			<hr>
 			<div class="container text-left">
 
-				<a href="<%=request.getContextPath()%>/new"
-					class="btn btn-info">Add Todo</a>
+				<a href="<%=request.getContextPath()%>/"
+					class="btn btn-info">Add New</a>
 			</div>
 			<br>
 			<table class="table table-bordered">
@@ -48,17 +47,17 @@
 
 						<tr>
 							<td><c:out value="${list.name}" /></td>
-							<td><c:out value="${list.semester1}" /></td>
-							<td><c:out value="${list.semester2}" /></td>
-							<td><c:out value="${list.semester3}" /></td>
-							<td><c:out value="${list.semester4}" /></td>
-							<td><c:out value="${list.semester5}" /></td>
-							<td><c:out value="${list.semester6}" /></td>
+							<td><c:out value="${list.sem1}" /></td>
+							<td><c:out value="${list.sem2}" /></td>
+							<td><c:out value="${list.sem3}" /></td>
+							<td><c:out value="${list.sem4}" /></td>
+							<td><c:out value="${list.sem5}" /></td>
+							<td><c:out value="${list.sem6}" /></td>
 							<td><c:out value="${list.cgpa}" /></td>
 						
-							<td><a href="edit?id=<c:out value='${todo.id}' />">Update</a>
+							<td><a href="edit?id=<c:out value='${list.studentid}' />">Update</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="delete?id=<c:out value='${todo.id}' />">Delete</a></td>
+								href="delete?id=<c:out value='${list.studentid}' />">Delete</a></td>
 
 							
 						</tr>

@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Registration</title>
+<title>Edit/Update</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -15,70 +16,66 @@
 </head>
 <body>
 	
-	<h3 class="text-center">Students Marks</h3>
+	<h3 class="text-center">Update Details</h3>
 	<div class="container text-right">
 
 		<a href="<%=request.getContextPath()%>/list"
-			class="btn btn-info">View All</a>
+			class="btn btn-info">Go Back</a>
 	</div>
 	<hr>
 	<div class="container col-md-5">
 			
 
-				<form action="<%=request.getContextPath()%>/upload" method="post">
+				<form action="<%=request.getContextPath()%>/update" method="post">
 
-                    <div class="form-group">
-						<label for="studentId">Student ID:</label> <input type="number"
-							class="form-control" placeholder="Enter Student ID"
-							name="studentId" required>
-					</div>
+                    <input type="hidden" name="id" value="<c:out value='${student.studentid}' />" />
 
 					<div class="form-group">
 						<label for="name">Name:</label> <input type="text"
-							class="form-control" placeholder="Enter Name"
+                            value="<c:out value='${student.name}' />" class="form-control"
 							name="name" required>
 					</div>
 
 					<div class="form-group">
 						<label for="email">Email:</label> <input type="text"
-							class="form-control"  placeholder="Enter Email "
+                            value="<c:out value='${student.email}' />" class="form-control" 
 							name="email" required>
 					</div>
 
 					<div class="form-group">
 						<label for="city">City:</label> <input type="text"
-							class="form-control" placeholder="Enter City"
+						    value="<c:out value='${student.city}' />" 	class="form-control" 
 							name="city" required>
 					</div>
 
 					<div class="form-group">
 						<label for="semester1">Semester 1:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 1 Marks"
+                            value="<c:out value='${student.sem1}' />" class="form-control" 
 							name="semester1" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester2">Semester 2:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 2 Marks"
+						    value="<c:out value='${student.sem2}' />" 	class="form-control" 
 							name="semester2" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester3">Semester 3:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 3 Marks"
+                            value="<c:out value='${student.sem3}' />" class="form-control" 
 							name="semester3" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester4">Semester 4:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 4 Marks"
+                        value="<c:out value='${student.sem4}' />"  class="form-control" 
 							name="semester4" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester5">Semester 5:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 5 Marks"
+                        value="<c:out value='${student.sem5}' />"  class="form-control" 
 							name="semester5" step="0.01" required>
 					</div>
                     <div class="form-group">
 						<label for="semester6">Semester 6:</label> <input type="number"
-							class="form-control"  placeholder="Enter Semester 6 Marks"
+                        value="<c:out value='${student.sem6}' />"  class="form-control"  
 							name="semester6" step="0.01" required>
 					</div>
 

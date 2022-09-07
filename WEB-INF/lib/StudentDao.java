@@ -56,7 +56,93 @@ public class StudentDao {
                 }
 
 
+        public void deleteStudent(long studentId){
+                try{
+                        DataObject d =DataAccess.get("details",(Criteria)null);
+                        Criteria c = new Criteria(new Column("details", "STUDENT_ID"),studentId, QueryConstants.EQUAL); 
+                        d.deleteRows("details",c);
 
+                        //Persists the changes done in the given dataObject into the database.
+                        DataAccess.update(d);
+                }catch(Exception e){
+                        e.printStackTrace();
+                }
+                
+        }
+
+        public Student selectStudent(long studentId){
+                
+                try{
+                        DataObject d =DataAccess.get("details",(Criteria)null);
+                        DataObject d2 =DataAccess.get("marks",(Criteria)null);
+                        Criteria c = new Criteria(new Column("details", "STUDENT_ID"),studentId, QueryConstants.EQUAL); 
+                        Criteria c2 = new Criteria(new Column("marks", "STUDENT_ID"),studentId, QueryConstants.EQUAL); 
+                        Row r1 = d.getRow("details",c);
+                        Row r2 = d2.getRow("marks",c2);
+                        String name =(String)r1.get(2);
+                        String email = (String)r1.get(3);
+                        String city = (String)r1.get(4);
+                        float semester1=Float.parseFloat(r2.get(3).toString());
+                        float semester2=Float.parseFloat(r2.get(4).toString());
+                        float semester3=Float.parseFloat(r2.get(5).toString());
+                        float semester4=Float.parseFloat(r2.get(6).toString());
+                        float semester5=Float.parseFloat(r2.get(7).toString());
+                        float semester6=Float.parseFloat(r2.get(8).toString());
+                        float cgpa=Float.parseFloat(r2.get(9).toString());
+                        Student existingStudent = new Student(studentId,name,email,city,semester1,semester2,semester3,semester4,semester5,semester6,cgpa);
+                        return(existingStudent);
+                }catch(Exception e){
+                        e.printStackTrace();
+                        return((Student)null);
+                }
+        }
+
+        public void updateStudent(Student updateStudent){
+                long studentId = updateStudent.getstudentid();
+                String name = updateStudent.getname();
+                String email = updateStudent.getemail();
+                String city = updateStudent.getcity();
+                float semester1 = updateStudent.getsem1();
+                float semester2 = updateStudent.getsem2();
+                float semester3 = updateStudent.getsem3();
+                float semester4 = updateStudent.getsem4();
+                float semester5 = updateStudent.getsem5();
+                float semester6 = updateStudent.getsem6();
+                float cgpa = updateStudent.getcgpa();
+                Criteria c1 = new Criteria(new Column("details", "STUDENT_ID"),studentId, QueryConstants.EQUAL);
+                Criteria c2 = new Criteria(new Column("marks", "STUDENT_ID"),studentId, QueryConstants.EQUAL);
+                try{
+                        DataObject d1 =DataAccess.get("details",c1);
+                        DataObject d2 =DataAccess.get("marks",c2);
+                        Row r1 = d1.getRow("details");
+                        Row r2 = d2.getRow("marks");
+
+                        r1.set(1, studentId);
+                        r1.set(2,name);
+                        r1.set(3,email);
+                        r1.set(4,city);
+                        r2.set(1,studentId);
+                        r2.set(2,studentId);
+                        r2.set(3,semester1);
+                        r2.set(4,semester2);
+                        r2.set(5,semester3);
+                        r2.set(6,semester4);
+                        r2.set(7,semester5);
+                        r2.set(8,semester6);
+                        r2.set(9,cgpa);
+
+                        //update the modified row in DO
+                        d1.updateRow(r1);
+                        d2.updateRow(r2);
+                        //Persists the changes done in the given dataObject into the database.
+                        DataAccess.update(d1);
+                        DataAccess.update(d2);
+                
+                }catch(DataAccessException e){
+                        e.printStackTrace(System.err);
+                }
+
+        }
 
         public List<Student> showAll() throws DataAccessException{
                 List<Student> studentslist = new ArrayList<>();
@@ -92,12 +178,10 @@ public class StudentDao {
                         DataObject dataObject = DataAccess.get("details",(Criteria)null);
                         Iterator it=dataObject.getRows("details");
                         //System.out.println(dataObject);
-                        System.out.println("INside SHowAll Function");
+                        System.out.println("Inside ShowAll Function");
                         while(it.hasNext())
                         {       
                                 Row r=(Row)it.next();
-                                
-                                System.out.println("INside While Loop");
                                 long studentId =Long.parseLong(r.get(1).toString());
                                 String name =(String)r.get(2);
                                 String email = (String)r.get(3);
@@ -112,12 +196,6 @@ public class StudentDao {
                                 //DataObject d1= DataAccess.get(c);
                                 Row markRow = d1.getFirstRow("marks");
                                 // to return each column value of the row
-                                System.out.println(r.get(1));
-                                System.out.println(r.get(2));
-                                System.out.println(r.get(3));
-                                System.out.println(r.get(4));
-                                System.out.println(r);
-                                System.out.println(markRow);
                                 float semester1=Float.parseFloat(markRow.get(3).toString());
                                 float semester2=Float.parseFloat(markRow.get(4).toString());
                                 float semester3=Float.parseFloat(markRow.get(5).toString());
