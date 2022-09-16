@@ -11,11 +11,10 @@ public class Schedule{
             Persistence pers = (Persistence) BeanUtil.lookup("Persistence");
             DataObject data = pers.constructDataObject();
 
-            // Add 'Task' class details to TaskEngine_Task table.
-
             Row taskengineRow = new Row(TASKENGINE_TASK.TABLE);
-            taskengineRow.set(TASKENGINE_TASK.TASK_NAME_IDX, "Sampletask");
-            taskengineRow.set(TASKENGINE_TASK.CLASS_NAME_IDX, "com.adventnet.taskengine.SampleTask");
+            taskengineRow.set(TASKENGINE_TASK.TASK_NAME_IDX,"Sampletask");
+            taskengineRow.set(TASKENGINE_TASK.CLASS_NAME_IDX,"sampletask.SampleTask");
+
             Row scheduleRow = new Row(SCHEDULE.TABLE);
             scheduleRow.set(SCHEDULE.SCHEDULE_NAME_IDX,"Sample");
 
@@ -28,26 +27,35 @@ public class Schedule{
             scheduledTaskRetryRow.set(SCHEDULEDTASK_RETRY.TASK_ID_IDX,taskengineRow.get(TASKENGINE_TASK.TASK_ID_IDX));
             scheduledTaskRetryRow.set(SCHEDULEDTASK_RETRY.RETRY_COUNT,5);
             scheduledTaskRetryRow.set(SCHEDULEDTASK_RETRY.RETRY_FACTOR,5);
-            scheduledTaskRetryRow.set(SCHEDULEDTASK_RETRY.RETRY_TIME_PERIOD,1);
+            scheduledTaskRetryRow.set(SCHEDULEDTASK_RETRY.RETRY_TIME_PERIOD,10);
             scheduledTaskRetryRow.set(SCHEDULEDTASK_RETRY.RETRY_UNIT_OF_TIME,"minutes");
             data.addRow(scheduledTaskRetryRow);
 
             Row periodicRow = new Row(PERIODIC.TABLE);
             periodicRow.set(PERIODIC.SCHEDULE_ID_IDX, scheduleRow.get(SCHEDULE.SCHEDULE_ID_IDX));
-            periodicRow.set(PERIODIC.START_DATE_IDX,"2022-08-06 01:00:00.0");
+            periodicRow.set(PERIODIC.START_DATE_IDX,"2018-08-06 01:00:00.0");
             // java.sql.Timestamp object.
-            periodicRow.set(PERIODIC.END_DATE_IDX,"2022-09-30 01:00:00.0");
+            periodicRow.set(PERIODIC.END_DATE_IDX,"2028-09-30 01:00:00.0");
             // java.sql.Timestamp object.
-            periodicRow.set(PERIODIC.TIME_PERIOD_IDX,23);
-            periodicRow.set(PERIODIC.UNIT_OF_TIME_IDX,"hours");
+            periodicRow.set(PERIODIC.TIME_PERIOD_IDX,1);
+            periodicRow.set(PERIODIC.UNIT_OF_TIME_IDX,"minutes");
 
             data.addRow(taskengineRow);
             data.addRow(scheduleRow);
             data.addRow(periodicRow);
             data.addRow(scheduledTaskRow);
             pers.add(data);
-            
-            System.out.println("InScheduling Successfull");
+
+            Scheduler s = (Scheduler) BeanUtil.lookup("Scheduler");
+            DataObject taskInputDO = pers.constructDataObject();
+            Row taskInputRow = new Row(TASK_INPUT.TABLE);
+            taskInputDO.addRow(taskInputRow);
+
+            // If needed, you can also add 'Default_Task_Input' rows to the above taskInputDO
+
+            s.scheduleTask("Sample","Sampletask",taskInputDO);
+
+            System.out.println("Scheduling Successfull");
         }catch(Exception e){
             e.printStackTrace();
         }
