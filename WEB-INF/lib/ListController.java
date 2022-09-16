@@ -22,7 +22,7 @@ import com.adventnet.persistence.*;
 public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudentDao studentDao;
-
+	Schedule scheduleObj = new Schedule();
 	public void init() {
 		studentDao = new StudentDao();
 	}
@@ -40,6 +40,7 @@ public class ListController extends HttpServlet {
 			switch (action) {
 			case "/list":
 				listStudents(request, response);
+				
 				break;
 			case "/delete":
 				deleteStudent(request, response);
@@ -61,6 +62,7 @@ public class ListController extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		
 		try{
+			scheduleObj.ScheduleTask();
 			List<Student> studentslist = studentDao.showAll();
 			request.setAttribute("studentslist", studentslist);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("student-list.jsp");
