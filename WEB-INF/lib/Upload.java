@@ -27,13 +27,14 @@ public class Upload extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("index.jsp");
+		//response.sendRedirect("upload.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("upload.jsp");
+		dispatcher.forward(request, response);
 	}
 	private void uploadDetails(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		long studentId = Long.parseLong(request.getParameter("studentId"));
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-		String city = request.getParameter("city");
 		float semester1 = Float.parseFloat(request.getParameter("semester1"));
 		float semester2 = Float.parseFloat(request.getParameter("semester2"));
 		float semester3 = Float.parseFloat(request.getParameter("semester3"));
@@ -45,7 +46,6 @@ public class Upload extends HttpServlet {
 		student.setstudentid(studentId);
 		student.setname(name);
 		student.setemail(email);
-		student.setcity(city);
 		student.setsem1(semester1);
 		student.setsem2(semester2);
 		student.setsem3(semester3);

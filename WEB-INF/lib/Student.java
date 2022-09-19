@@ -7,7 +7,6 @@ public class Student implements Serializable {
     private long studentId;
     private String name;
     private String email;
-    private String city;
     private float semester1;
     private float semester2;
     private float semester3;
@@ -18,12 +17,11 @@ public class Student implements Serializable {
 
 	public Student(){}
 
-	public Student(long studentId, String name, String email, String city, float semester1, float semester2, float semester3, float semester4, float semester5, float semester6){
+	public Student(long studentId, String name, String email, float semester1, float semester2, float semester3, float semester4, float semester5, float semester6){
 		super();
 		this.studentId = studentId;
 		this.name = name;
 		this.email = email;
-		this.city = city;
 		this.semester1 = semester1;
 		this.semester2 = semester2;
 		this.semester3 = semester3;
@@ -32,12 +30,11 @@ public class Student implements Serializable {
 		this.semester6 = semester6;
 	}
 
-	public Student(long studentId, String name, String email, String city, float semester1, float semester2, float semester3, float semester4, float semester5, float semester6, float cgpa){
+	public Student(long studentId, String name, String email, float semester1, float semester2, float semester3, float semester4, float semester5, float semester6, float cgpa){
 		super();
 		this.studentId = studentId;
 		this.name = name;
 		this.email = email;
-		this.city = city;
 		this.semester1 = semester1;
 		this.semester2 = semester2;
 		this.semester3 = semester3;
@@ -67,13 +64,6 @@ public class Student implements Serializable {
 	}
 	public void setemail(String email) {
 		this.email = email;
-	}
-
-	public String getcity() {
-		return city;
-	}
-	public void setcity(String city) {
-		this.city = city;
 	}
 
 	public void setsem1(float semester1) {

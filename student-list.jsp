@@ -23,7 +23,7 @@
 			<hr>
 			<div class="container text-left">
 
-				<a href="<%=request.getContextPath()%>/"
+				<a href="<%=request.getContextPath()%>/upload"
 					class="btn btn-info">Add New</a>
 			</div>
 			<br>

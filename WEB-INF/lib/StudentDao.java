@@ -13,7 +13,6 @@ public class StudentDao {
                 long studentId = student.getstudentid();
                 String name = student.getname();
                 String email = student.getemail();
-                String city = student.getcity();
                 float semester1 = student.getsem1();
                 float semester2 = student.getsem2();
                 float semester3 = student.getsem3();
@@ -29,7 +28,6 @@ public class StudentDao {
                 r1.set(1, new Long(studentId));
                 r1.set(2,name);
                 r1.set(3,email);
-                r1.set(4,city);
                 //Table Details = new Table("Marks");
                 Row r2 = new Row("marks");
                 r2.set(1,studentId);
@@ -81,7 +79,6 @@ public class StudentDao {
                         Row r2 = d2.getRow("marks",c2);
                         String name =(String)r1.get(2);
                         String email = (String)r1.get(3);
-                        String city = (String)r1.get(4);
                         float semester1=Float.parseFloat(r2.get(3).toString());
                         float semester2=Float.parseFloat(r2.get(4).toString());
                         float semester3=Float.parseFloat(r2.get(5).toString());
@@ -89,7 +86,7 @@ public class StudentDao {
                         float semester5=Float.parseFloat(r2.get(7).toString());
                         float semester6=Float.parseFloat(r2.get(8).toString());
                         float cgpa=Float.parseFloat(r2.get(9).toString());
-                        Student existingStudent = new Student(studentId,name,email,city,semester1,semester2,semester3,semester4,semester5,semester6,cgpa);
+                        Student existingStudent = new Student(studentId,name,email,semester1,semester2,semester3,semester4,semester5,semester6,cgpa);
                         return(existingStudent);
                 }catch(Exception e){
                         e.printStackTrace();
@@ -101,7 +98,6 @@ public class StudentDao {
                 long studentId = updateStudent.getstudentid();
                 String name = updateStudent.getname();
                 String email = updateStudent.getemail();
-                String city = updateStudent.getcity();
                 float semester1 = updateStudent.getsem1();
                 float semester2 = updateStudent.getsem2();
                 float semester3 = updateStudent.getsem3();
@@ -120,7 +116,6 @@ public class StudentDao {
                         r1.set(1, studentId);
                         r1.set(2,name);
                         r1.set(3,email);
-                        r1.set(4,city);
                         r2.set(1,studentId);
                         r2.set(2,studentId);
                         r2.set(3,semester1);
@@ -185,7 +180,6 @@ public class StudentDao {
                                 long studentId =Long.parseLong(r.get(1).toString());
                                 String name =(String)r.get(2);
                                 String email = (String)r.get(3);
-                                String city = (String)r.get(4);
                                 SelectQuery query = new SelectQueryImpl(Table.getTable("marks"));
                                 query.addSelectColumn(Column.getColumn(null,"*"));
                                 Criteria c = new Criteria(new Column("marks", "STUDENT_ID"),studentId, QueryConstants.EQUAL);
@@ -204,7 +198,7 @@ public class StudentDao {
                                 float semester6=Float.parseFloat(markRow.get(8).toString());
                                 float cgpa=Float.parseFloat(markRow.get(9).toString());
 
-                               studentslist.add(new Student(studentId,name,email,city,semester1,semester2,semester3,semester4,semester5,semester6,cgpa));
+                               studentslist.add(new Student(studentId,name,email,semester1,semester2,semester3,semester4,semester5,semester6,cgpa));
                                 
                         }
                 }catch(DataAccessException e){

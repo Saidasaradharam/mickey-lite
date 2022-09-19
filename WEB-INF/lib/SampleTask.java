@@ -30,7 +30,7 @@ public class SampleTask implements Task
                     r1.set(1, Long.parseLong(employee[1]));
                     r1.set(2,employee[2]);
                     r1.set(3,employee[3]);
-                    r1.set(4,employee[4]);
+                    //r1.set(4,employee[4]);
                     Row r2 = new Row("marks");
                     r2.set(1,Long.parseLong(employee[1]));
                     r2.set(2,Long.parseLong(employee[1]));
@@ -74,7 +74,7 @@ public class SampleTask implements Task
                     Criteria c1 = new Criteria(new Column(employee[2], "STUDENT_ID"),Long.parseLong(employee[1]), QueryConstants.EQUAL);
                     DataObject d1 =DataAccess.get(employee[2],c1);
                     Row r1 = d1.getRow(employee[2]);
-                    if((employee[3].equals("CITY"))||(employee[3].equals("STUDENT_EMAIL"))||(employee[3].equals("STUDENT_NAME")))
+                    if((employee[3].equals("STUDENT_EMAIL"))||(employee[3].equals("STUDENT_NAME")))
                         r1.set(employee[3], employee[4]);
                     else{
                         float sem = Float.parseFloat(r1.get(employee[3]).toString());

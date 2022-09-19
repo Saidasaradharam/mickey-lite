@@ -23,6 +23,7 @@ public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudentDao studentDao;
 	Schedule scheduleObj = new Schedule();
+	LoginDao LoginDaoobj = new LoginDao();
 	public void init() {
 		studentDao = new StudentDao();
 	}
@@ -62,7 +63,9 @@ public class ListController extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		
 		try{
-			scheduleObj.ScheduleTask();
+			//scheduleObj.ScheduleTask();     // Schedules a task
+
+			//LoginDaoobj.login();
 			List<Student> studentslist = studentDao.showAll();
 			request.setAttribute("studentslist", studentslist);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("student-list.jsp");
@@ -96,7 +99,6 @@ public class ListController extends HttpServlet {
 		long studentId = Long.parseLong(request.getParameter("id"));
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-		String city = request.getParameter("city");
 		float semester1 = Float.parseFloat(request.getParameter("semester1"));
 		float semester2 = Float.parseFloat(request.getParameter("semester2"));
 		float semester3 = Float.parseFloat(request.getParameter("semester3"));
@@ -104,7 +106,7 @@ public class ListController extends HttpServlet {
 		float semester5 = Float.parseFloat(request.getParameter("semester5"));
 		float semester6 = Float.parseFloat(request.getParameter("semester6"));
 		float cgpa = Float.parseFloat(String.format("%.2f",((semester1+semester2+semester3+semester4+semester5+semester6)/6)));
-		Student updateStudent = new Student(studentId,name,email,city,semester1,semester2,semester3,semester4,semester5,semester6,cgpa);
+		Student updateStudent = new Student(studentId,name,email,semester1,semester2,semester3,semester4,semester5,semester6,cgpa);
 		
 		studentDao.updateStudent(updateStudent);
 		
