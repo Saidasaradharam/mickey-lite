@@ -15,13 +15,11 @@ import javax.security.auth.login.LoginException;
 
 
 
-
-@WebServlet("/upload")
-public class Upload extends HttpServlet {
+@WebServlet("/staffUpload")
+public class StaffUpload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudentDao studentDao;
 	RegistrationDao RegistrationDaoobj = new RegistrationDao();
-
 	public void init() {
 		studentDao = new StudentDao();
 	}
@@ -34,51 +32,25 @@ public class Upload extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		ServletContext servletcontext = getServletContext();
+		//response.sendRedirect("upload.jsp");
+        ServletContext servletcontext = getServletContext();
 	    String role = (String)servletcontext.getAttribute("role");
-        if (role.equals("Student") || role.equals("Staff")){
+        if (!role.equals("Principal")){
 		    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");	
             dispatcher.forward(request, response);
 	   }
-	   else{
-		RequestDispatcher dispatcher = request.getRequestDispatcher("upload.jsp");
+       else{
+		RequestDispatcher dispatcher = request.getRequestDispatcher("staff-upload.jsp");
 		dispatcher.forward(request, response);
-		}
-	}
+	    }
+    }
 	private void uploadDetails(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		long studentId = Long.parseLong(request.getParameter("studentId"));
+		
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		float semester1 = Float.parseFloat(request.getParameter("semester1"));
-		float semester2 = Float.parseFloat(request.getParameter("semester2"));
-		float semester3 = Float.parseFloat(request.getParameter("semester3"));
-		float semester4 = Float.parseFloat(request.getParameter("semester4"));
-		float semester5 = Float.parseFloat(request.getParameter("semester5"));
-		float semester6 = Float.parseFloat(request.getParameter("semester6"));
-		
-		RegistrationDaoobj.register(name,email,password,"Student");
+        String role = request.getParameter("role");
+		RegistrationDaoobj.register(name,email,password,role);
 
-		Student student = new Student();
-		student.setstudentid(studentId);
-		student.setname(name);
-		student.setemail(email);
-		student.setsem1(semester1);
-		student.setsem2(semester2);
-		student.setsem3(semester3);
-		student.setsem4(semester4);
-		student.setsem5(semester5);
-		student.setsem6(semester6);
-
-		try {
-			int result = studentDao.registerUser(student);
-			System.out.println("Result is : "+result);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		response.sendRedirect("list");
-		
 	}
 }

@@ -15,6 +15,21 @@
 <body>
 
 
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark"
+			style="background-color: #6a6aa1">
+
+
+			<ul class="navbar-nav navbar-collapse justify-content-end">
+				<li><a href="<%=request.getContextPath()%>/"
+					class="nav-link">Home</a></li>
+
+				<li><a href="<%=request.getContextPath()%>/logout"
+					class="nav-link">Logout</a></li>
+			</ul>
+		</nav>
+	</header>
+
 	<div class="row">
 
 
@@ -22,9 +37,16 @@
 			<h3 class="text-center">Students Marks</h3>
 			<hr>
 			<div class="container text-left">
-
-				<a href="<%=request.getContextPath()%>/upload"
-					class="btn btn-info">Add New</a>
+				<% 
+				ServletContext servletcontext = getServletContext();
+				String role = (String)servletcontext.getAttribute("role");
+				if (role.equals("Principal")){
+					
+				%>
+					<a href="<%=request.getContextPath()%>/upload"
+						class="btn btn-info">Add New</a>
+						<% }%>
+				
 			</div>
 			<br>
 			<table class="table table-bordered">
@@ -39,7 +61,11 @@
 						<th>Semester 5</th>
 						<th>Semester 6</th>
 						<th>CGPA</th>
+						<% 
+						if (!role.equals("Student")){
+						%>
 						<th>Other Options</th>
+						<% } %>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,11 +81,18 @@
 							<td><c:out value="${list.sem5}" /></td>
 							<td><c:out value="${list.sem6}" /></td>
 							<td><c:out value="${list.cgpa}" /></td>
-						
-							<td><a href="edit?id=<c:out value='${list.studentid}' />">Update</a>
-								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="delete?id=<c:out value='${list.studentid}' />">Delete</a></td>
-
+							<% 
+							if (!role.equals("Student")){
+							%>
+								<td><a href="edit?id=<c:out value='${list.studentid}' />">Update</a>
+									
+									<% 
+									if (!role.equals("Staff")){
+									%>	&nbsp;&nbsp;&nbsp;&nbsp; 
+										<a href="delete?id=<c:out value='${list.studentid}' />">Delete</a>
+									<% } %>
+								</td>
+							<% } %>
 							
 						</tr>
 					</c:forEach>

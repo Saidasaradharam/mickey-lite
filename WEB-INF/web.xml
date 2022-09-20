@@ -27,7 +27,7 @@
 
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>LoginController</servlet-class>
+        <servlet-class>student.LoginController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -44,6 +44,16 @@
     <servlet-mapping>
         <servlet-name>Upload</servlet-name>
         <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StaffUpload</servlet-name>
+        <servlet-class>student.StaffUpload</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StaffUpload</servlet-name>
+        <url-pattern>/staffUpload</url-pattern>
     </servlet-mapping>
 
 </web-app>

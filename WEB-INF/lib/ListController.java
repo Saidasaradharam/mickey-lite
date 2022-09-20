@@ -1,11 +1,9 @@
 package student;
 
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-
 import javax.servlet.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,7 +21,7 @@ public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudentDao studentDao;
 	Schedule scheduleObj = new Schedule();
-	LoginDao LoginDaoobj = new LoginDao();
+	RegistrationDao RegistrationDaoobj = new RegistrationDao();
 	public void init() {
 		studentDao = new StudentDao();
 	}
@@ -36,21 +34,37 @@ public class ListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getServletPath();
-
+		ServletContext servletcontext = getServletContext();
+		String role = (String)servletcontext.getAttribute("role");
 		try {
 			switch (action) {
 			case "/list":
 				listStudents(request, response);
-				
 				break;
 			case "/delete":
-				deleteStudent(request, response);
-			 	break;
+				if (role.equals("Staff") || role.equals("Student")){
+					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+					dispatcher.forward(request, response);
+				}
+				else{
+					deleteStudent(request, response);
+				}
+				break;
 			 case "/edit":
-			 	showEditForm(request, response);
+			 	if (role.equals("Student")){
+					response.sendRedirect("list");
+				}
+				else{
+			 		showEditForm(request, response);
+				}
 			 	break;
 			 case "/update":
-			 	updateStudent(request, response);
+			 	if (role.equals("Student")){
+					response.sendRedirect("list");
+				}
+				else{
+			 		updateStudent(request, response);
+				}
 				break;
 			
 			}
@@ -59,17 +73,29 @@ public class ListController extends HttpServlet {
 		}
 	}
 
+
 	private void listStudents(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		
 		try{
-			//scheduleObj.ScheduleTask();     // Schedules a task
 
-			//LoginDaoobj.login();
-			List<Student> studentslist = studentDao.showAll();
-			request.setAttribute("studentslist", studentslist);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("student-list.jsp");
-			dispatcher.forward(request, response);
+			ServletContext servletcontext = getServletContext();
+			String role = (String)servletcontext.getAttribute("role");
+			if (role.equals("Student")){
+				System.out.println("It is student inside list controller");
+				List<Student> studentslist = studentDao.showStudent(request.getUserPrincipal().getName());
+				request.setAttribute("studentslist", studentslist);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("student-list.jsp");
+				dispatcher.forward(request, response);
+				
+			
+			}else{
+				System.out.println("It is not student inside list controller");
+				List<Student> studentslist = studentDao.showAll();
+				request.setAttribute("studentslist", studentslist);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("student-list.jsp");
+				dispatcher.forward(request, response);
+			}
 			
 		}catch(DataAccessException e){
 			e.printStackTrace();

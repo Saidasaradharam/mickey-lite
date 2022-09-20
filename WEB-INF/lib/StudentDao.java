@@ -139,6 +139,53 @@ public class StudentDao {
 
         }
 
+
+         public List<Student> showStudent(String email) throws DataAccessException{
+                List<Student> studentslist = new ArrayList<>();
+                try{
+                        
+                        Table Details = new Table("Details");
+                        
+                        Criteria c1 = new Criteria(new Column("details", "STUDENT_EMAIL"),email, QueryConstants.EQUAL);
+                        DataObject dataObject = DataAccess.get("details",c1);
+                        Iterator it=dataObject.getRows("details");
+                        System.out.println("Inside get single student details!");
+                        System.out.println("Inside ShowAll Function");
+                        while(it.hasNext())
+                        {       
+                                Row r=(Row)it.next();
+                                long studentId =Long.parseLong(r.get(1).toString());
+                                String name =(String)r.get(2);
+                                SelectQuery query = new SelectQueryImpl(Table.getTable("marks"));
+                                query.addSelectColumn(Column.getColumn(null,"*"));
+                                Criteria c = new Criteria(new Column("marks", "STUDENT_ID"),studentId, QueryConstants.EQUAL);
+                                query.setCriteria(c);
+                                
+                                Persistence per= (Persistence)BeanUtil.lookup("Persistence");
+                                DataObject d1 = per.get(query);
+                                //DataObject d1= DataAccess.get(c);
+                                Row markRow = d1.getFirstRow("marks");
+                                // to return each column value of the row
+                                float semester1=Float.parseFloat(markRow.get(3).toString());
+                                float semester2=Float.parseFloat(markRow.get(4).toString());
+                                float semester3=Float.parseFloat(markRow.get(5).toString());
+                                float semester4=Float.parseFloat(markRow.get(6).toString());
+                                float semester5=Float.parseFloat(markRow.get(7).toString());
+                                float semester6=Float.parseFloat(markRow.get(8).toString());
+                                float cgpa=Float.parseFloat(markRow.get(9).toString());
+
+                               studentslist.add(new Student(studentId,name,email,semester1,semester2,semester3,semester4,semester5,semester6,cgpa));
+                                
+                        }
+                }catch(DataAccessException e){
+                         e.printStackTrace(System.err);
+                }catch(Exception e){
+                        e.printStackTrace();
+                }
+                return(studentslist);
+        }
+
+
         public List<Student> showAll() throws DataAccessException{
                 List<Student> studentslist = new ArrayList<>();
                 try{

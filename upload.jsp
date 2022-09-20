@@ -15,6 +15,29 @@
 </head>
 <body>
 	
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark"
+			style="background-color: #6a6aa1">
+
+
+			<ul class="navbar-nav navbar-collapse justify-content-end">
+
+				<li><a href="<%=request.getContextPath()%>/"
+					class="nav-link">Home</a></li>
+
+				<li><a href="<%=request.getContextPath()%>/logout"
+					class="nav-link">Logout</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<%  ServletContext servletcontext = getServletContext();
+		String role = (String)servletcontext.getAttribute("role");
+		if (role.equals("Student") || role.equals("Staff")){
+			response.sendRedirect("list");
+		}
+   	%>
+
 	<h3 class="text-center">Students Marks</h3>
 	<h5 class="text-center">Add Record</h5>
 	<div class="container text-right">
@@ -46,6 +69,11 @@
 							name="email" required>
 					</div>
 
+					<div class="form-group">
+						<label for="password">Password:</label> <input type="password"
+							class="form-control"  placeholder="Enter Password"
+							name="password" required>
+					</div>
 
 					<div class="form-group">
 						<label for="semester1">Semester 1:</label> <input type="number"

@@ -17,19 +17,59 @@ import javax.security.auth.login.LoginException;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private LoginDao loginDao;
-
-	public void init() {
-		loginDao = new LoginDao();
-	}
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-		dispatcher.forward(request, response);
+				ServletContext servletcontext = getServletContext();
+				if (request.isUserInRole("Student")) {
+					System.out.println("Succesfully setted the servlet context role");
+					
+					servletcontext.setAttribute("role", "Student");
+					response.sendRedirect("list");
+					//response.sendRedirect("list");
+				} else if (request.isUserInRole("Staff")){
+					servletcontext.setAttribute("role", "Staff");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");	
+					dispatcher.forward(request, response);
+
+				} else if (request.isUserInRole("Hod")){
+					servletcontext.setAttribute("role", "Hod");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");	
+					dispatcher.forward(request, response);
+				}
+				 else if (request.isUserInRole("Principal")){
+					servletcontext.setAttribute("role", "Principal");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");	
+					dispatcher.forward(request, response);
+				}
+				
+				
 	}
 
+	// protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	// 		throws ServletException, IOException {
+	// 	loginDetails(request, response);
+	// }
 	
+	// private void loginDetails(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	// 	System.out.println("INside Login Details function present in  Login Controller");
+	// 	ServletContext servletcontext = getServletContext();
+	// 	if (request.isUserInRole("Student")) {
+	// 		System.out.println("Succesfully setted the servlet context role");
+			
+	// 		servletcontext.setAttribute("role", "Student");
+	// 		response.sendRedirect("list");
+	// 	} else if (request.isUserInRole("Staff")){
+			
+	// 		servletcontext.setAttribute("role", "Staff");
+	// 	} else if (request.isUserInRole("Hod")){
+			
+	// 		servletcontext.setAttribute("role", "Hod");
+	// 	} else if (request.isUserInRole("Principal")){
+			
+	// 		servletcontext.setAttribute("role", "Principal");
+	// 	}
+		
+	// }
 }
-   
-   

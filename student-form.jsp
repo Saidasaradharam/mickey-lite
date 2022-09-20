@@ -16,6 +16,23 @@
 </head>
 <body>
 	
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark"
+			style="background-color: #6a6aa1">
+
+
+			<ul class="navbar-nav navbar-collapse justify-content-end">
+				<li><a href="<%=request.getContextPath()%>/"
+					class="nav-link">Home</a></li>
+				
+				<li><a href="<%=request.getContextPath()%>/logout"
+					class="nav-link">Logout</a></li>
+
+
+			</ul>
+		</nav>
+	</header>
+
 	<h3 class="text-center">Update Details</h3>
 	<div class="container text-right">
 
